@@ -1,0 +1,48 @@
+erDiagram
+    PASIEN ||--o{ PENDAFTARAN : melakukan
+    DOKTER ||--o{ PENDAFTARAN : menangani
+    PENDAFTARAN ||--o| PEMERIKSAAN : memiliki
+    PENDAFTARAN ||--o| PEMBAYARAN : memiliki
+
+    PASIEN {
+        int id_pasien PK
+        varchar no_rm UK
+        varchar nik UK
+        varchar nama_pasien
+        enum jenis_kelamin
+        date tanggal_lahir
+        varchar no_hp
+        text alamat
+    }
+    DOKTER {
+        int id_dokter PK
+        varchar nama_dokter
+        varchar spesialisasi
+        varchar no_hp
+    }
+    PENDAFTARAN {
+        int id_pendaftaran PK
+        varchar kode_pendaftaran UK
+        int id_pasien FK
+        int id_dokter FK
+        date tanggal_kunjungan
+        text keluhan
+        enum status
+    }
+    PEMERIKSAAN {
+        int id_pemeriksaan PK
+        int id_pendaftaran FK, UK
+        text diagnosa
+        text tindakan
+        text resep_obat
+        text catatan
+    }
+    PEMBAYARAN {
+        int id_pembayaran PK
+        int id_pendaftaran FK, UK
+        decimal biaya_konsultasi
+        decimal biaya_obat
+        decimal total_biaya
+        enum metode_pembayaran
+        enum status_pembayaran
+    }
